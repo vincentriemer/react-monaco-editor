@@ -31,7 +31,7 @@ class MonacoEditor extends React.Component {
     }
 
     if (prevProps.width !== this.props.width || prevProps.height !== this.props.height) {
-      context.monaco.editor.layout({
+      this.editor.layout({
         width: this.props.width,
         height: this.props.height
       });
