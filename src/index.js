@@ -31,10 +31,12 @@ class MonacoEditor extends React.Component {
     }
 
     if (prevProps.width !== this.props.width || prevProps.height !== this.props.height) {
-      this.editor.layout({
-        width: this.props.width,
-        height: this.props.height
-      });
+      if (this.editor) {
+        this.editor.layout({
+          width: this.props.width,
+          height: this.props.height
+        });
+      }
     }
   }
   editorWillMount(monaco) {
@@ -44,6 +46,12 @@ class MonacoEditor extends React.Component {
   editorDidMount(editor, monaco) {
     const { editorDidMount, onChange } = this.props;
     editorDidMount(editor, monaco);
+
+    editor.layout({
+      width: this.props.width,
+      height: this.props.height
+    });
+
     editor.onDidChangeModelContent(event => {
       const value = editor.getValue();
 
